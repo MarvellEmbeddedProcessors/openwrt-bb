@@ -282,7 +282,7 @@ sub gen_target_config() {
 	print <<EOF;
 choice
 	prompt "Target System"
-	default TARGET_ar71xx
+	default TARGET_mvebu
 	reset if !DEVEL
 	
 EOF
