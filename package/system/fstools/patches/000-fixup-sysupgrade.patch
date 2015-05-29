@@ -1,0 +1,19 @@
+--- a/ubi.c
++++ b/ubi.c
+@@ -127,14 +127,14 @@
+ {
+ 	libubi_t libubi;
+ 	char mtd[64];
+-	int err;
++	int err = 0;
+ 
+ 	if (!strcmp(type, "kernel"))
+ 		err = mtd_find("kernel_ubi", mtd);
+ 	else if (!strcmp(type, "rootfs"))
+ 		err = mtd_find("rootfs_ubi", mtd);
+ 	else
+-		return print_usage();
++		sprintf(mtd, "%s", type);
+ 
+ 	if (err) {
+ 		ULOG_ERR("MTD partition '%s_ubi' not found\n", type);
