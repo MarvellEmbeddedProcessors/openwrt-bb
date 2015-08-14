@@ -13,6 +13,13 @@ platform_check_image() {
 	[ "$#" -gt 1 ] && return 1
 
 	case "$board" in
+	armada-385-db-ap)
+		[ "$magic_long" != "73797375" ] && {
+			echo "Invalid image type."
+			return 1
+		}
+		return 0;
+		;;
 	*)
 		;;
 	esac
@@ -25,6 +32,9 @@ platform_do_upgrade() {
 	local board=$(mvebu_board_name)
 
 	case "$board" in
+	armada-385-db-ap)
+		platform_do_upgrade_marvell_385_db_ap "$ARGV"
+		;;
 	*)
 		;;
 	esac

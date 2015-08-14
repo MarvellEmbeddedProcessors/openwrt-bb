@@ -15,6 +15,9 @@ ucidef_set_interface_loopback
 board=$(mvebu_board_name)
 
 case "$board" in
+armada-385-db-ap)
+	ucidef_set_interfaces_lan_wan "eth1 eth2" "eth0"
+	;;
 *)
 	ucidef_set_interface_lan "eth0"
 	;;
