@@ -13,6 +13,9 @@ mvebu_board_detect() {
 	machine=$(cat /proc/device-tree/model)
 
 	case "$machine" in
+	*"Marvell Armada 385 Access Point Development Board")
+		name="armada-385-db-ap"
+		;;
 	*)
 		name="unknown"
 		;;

@@ -115,6 +115,23 @@ define MultiProfile
 endef
 
 
+define Image/Build/Profile/385_DB_AP/squashfs
+	$(call Image/Build/UbinizeImage,armada-385-db-ap,,squashfs, -p 256KiB -m 4096)
+
+	# ubi rootfs
+	cp $(KDIR)/$(IMG_PREFIX)-armada-385-db-ap-squashfs-ubinized.bin $(BIN_DIR)/$(IMG_PREFIX)-armada-385-db-ap.ubi
+
+	# mainline firmware image
+	( \
+		dd if=$(KDIR)/uImage-armada-385-db-ap bs=8M conv=sync; \
+		dd if=$(KDIR)/$(IMG_PREFIX)-armada-385-db-ap-squashfs-ubinized.bin \
+		bs=4096 conv=sync; \
+	) > $(BIN_DIR)/$(IMG_PREFIX)-armada-385-db-ap-squashfs-factory.img
+endef
+
+$(eval $(call NANDProfile,385_DB_AP,armada-385-db-ap,256KiB,4096))
+
+
 define Image/BuildKernel
 	$(call Image/BuildKernel/Profile/$(PROFILE))
 endef
