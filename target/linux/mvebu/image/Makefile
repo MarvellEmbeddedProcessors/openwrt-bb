@@ -92,6 +92,23 @@ define NORProfile
 endef
 
 
+define MMCProfile
+  define Image/BuildKernel/Profile/$(1)
+	$(call Image/Build/DTB,$(2))
+    ifneq ($(CONFIG_TARGET_ROOTFS_INITRAMFS),)
+	$(call Image/Build/Profile,$(1)/Initramfs)
+    endif
+  endef
+
+  define Image/Build/Profile/$(1)/Initramfs
+	$(call Image/Build/DTB,$(2),-initramfs)
+	cp $(KDIR)/uImage-initramfs-$(2) $(BIN_DIR)/$(IMG_PREFIX)-$(2)-initramfs
+  endef
+
+  PROFILES_LIST += $(1)
+endef
+
+
 define MultiProfile
   define Image/BuildKernel/Profile/$(1)
 	$(foreach profile, $(2),
@@ -132,7 +149,13 @@ endef
 $(eval $(call NANDProfile,385_DB_AP,armada-385-db-ap,256KiB,4096))
 
 
+define Image/Build/Profile/388_SOLIDRUN_CLEARFOG_A1/addons
+	cp $(KDIR)/zImage $(KDIR)/../root-mvebu/
+	cp $(LINUX_DIR)/arch/arm/boot/dts/armada-388-clearfog.dtb $(KDIR)/../root-mvebu/
+endef
+
 define Image/BuildKernel
+	$(call Image/Build/Profile/$(PROFILE)/addons)
 	$(call Image/BuildKernel/Profile/$(PROFILE))
 endef
 
@@ -153,5 +176,6 @@ endif
 endef
 
 
+$(eval $(call MMCProfile,388_SOLIDRUN_CLEARFOG_A1,armada-388-clearfog,256KiB,4096))
 $(eval $(call MultiProfile,Default,$(PROFILES_LIST)))
 $(eval $(call BuildImage))
