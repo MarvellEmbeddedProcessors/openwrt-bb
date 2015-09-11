@@ -152,6 +152,7 @@ $(eval $(call NANDProfile,385_DB_AP,armada-385-db-ap,256KiB,4096))
 define Image/Build/Profile/388_SOLIDRUN_CLEARFOG_A1/addons
 	cp $(KDIR)/zImage $(KDIR)/../root-mvebu/
 	cp $(LINUX_DIR)/arch/arm/boot/dts/armada-388-clearfog.dtb $(KDIR)/../root-mvebu/
+	cp ../files/u-boot-a38x-2014_T3.0-mmc.bin $(BIN_DIR)
 endef
 
 define Image/BuildKernel
