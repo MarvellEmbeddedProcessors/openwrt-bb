@@ -21,3 +21,20 @@ endef
 385_DB_AP_UBIFS_OPTS:="-m 4096 -e 248KiB -c 4096"
 
 $(eval $(call Profile,385_DB_AP))
+
+define Profile/395_DB_GP
+  NAME:=Marvell Armada 395 Development Board GP
+  PACKAGES:= \
+	kmod-usb3 kmod-usb2 kmod-usb-storage \
+	kmod-of-i2c kmod-i2c-core kmod-i2c-mv64xxx \
+	kmod-ata-core kmod-ata-marvell-sata \
+	kmod-thermal-armada
+endef
+
+define Profile/395_DB_GP/Description
+ Package set compatible with the Marvell Armada 395 Development Board.
+endef
+
+395_DB_GP_UBIFS_OPTS:="-m 4096 -e 248KiB -c 4096"
+
+$(eval $(call Profile,395_DB_GP))

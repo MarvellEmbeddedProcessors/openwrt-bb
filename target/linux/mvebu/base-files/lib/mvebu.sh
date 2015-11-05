@@ -19,6 +19,9 @@ mvebu_board_detect() {
 	*"SolidRun ClearFog a1 board")
 		name="armada-388-clearfog"
 		;;
+	*"Marvell Armada 395 Development Board GP")
+		name="armada-395-db-gp"
+		;;
 	*)
 		name="unknown"
 		;;

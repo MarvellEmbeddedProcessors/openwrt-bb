@@ -21,6 +21,9 @@ armada-385-db-ap)
 armada-388-clearfog)
 	ucidef_set_interfaces_lan_wan "eth1" "eth0"
 	;;
+armada-395-db-gp)
+	ucidef_set_interfaces_lan_wan "nic2" "nic0"
+	;;
 *)
 	ucidef_set_interface_lan "eth0"
 	;;

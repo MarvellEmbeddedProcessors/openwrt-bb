@@ -155,6 +155,16 @@ define Image/Build/Profile/388_SOLIDRUN_CLEARFOG_A1/addons
 	cp ../files/u-boot-a38x-2014_T3.0-mmc.bin $(BIN_DIR)
 endef
 
+define Image/Build/Profile/395_DB_GP/squashfs
+	$(call Image/Build/UbinizeImage,armada-395-db-gp,,squashfs, -p 256KiB -m 4096)
+
+	# ubi rootfs
+	cp $(KDIR)/$(IMG_PREFIX)-armada-395-db-gp-squashfs-ubinized.bin $(BIN_DIR)/$(IMG_PREFIX)-armada-395-db-gp.ubi
+endef
+
+$(eval $(call NANDProfile,395_DB_GP,armada-395-db-gp,256KiB,4096))
+
+
 define Image/BuildKernel
 	$(call Image/Build/Profile/$(PROFILE)/addons)
 	$(call Image/BuildKernel/Profile/$(PROFILE))
