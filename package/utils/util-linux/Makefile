@@ -190,6 +190,17 @@ define Package/flock/description
   manages flock locks from within shell scripts or the command line
 endef
 
+
+define Package/fsfreeze
+$(call Package/util-linux/Default)
+  TITLE:=suspend access to a filesystem
+endef
+
+define Package/fsfreeze/description
+  suspend access to a filesystem
+endef
+
+
 define Package/getopt
 $(call Package/util-linux/Default)
   TITLE:=parse command options (enhanced)
@@ -258,6 +269,28 @@ define Package/mcookie/description
  mcookie generates a 128-bit random hexadecimal number for use with the X
  authority system
 endef
+
+
+
+define Package/mkfs
+$(call Package/util-linux/Default)
+  TITLE:=build a Linux file system
+endef
+
+define Package/mkfs/description
+ build a Linux file system
+endef
+
+
+define Package/mkfs_bfs
+$(call Package/util-linux/Default)
+  TITLE:=make an SCO bfs filesystem
+endef
+
+define Package/mkfs_bfs/description
+ make an SCO bfs filesystem
+endef
+
 
 define Package/mount-utils
 $(call Package/util-linux/Default)
@@ -453,6 +486,11 @@ define Package/flock/install
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/flock $(1)/usr/bin/
 endef
 
+define Package/fsfreeze/install
+	$(INSTALL_DIR) $(1)/usr/bin
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/fsfreeze $(1)/usr/bin/
+endef
+
 define Package/getopt/install
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/getopt $(1)/usr/bin/
@@ -486,6 +524,16 @@ endef
 define Package/mcookie/install
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/mcookie $(1)/usr/bin/
+endef
+
+define Package/mkfs/install
+	$(INSTALL_DIR) $(1)/usr/bin
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/mkfs $(1)/usr/bin/
+endef
+
+define Package/mkfs_bfs/install
+	$(INSTALL_DIR) $(1)/usr/bin
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/mkfs.bfs $(1)/usr/bin/
 endef
 
 define Package/mount-utils/install
@@ -570,6 +618,7 @@ $(eval $(call BuildPackage,dmesg))
 $(eval $(call BuildPackage,fdisk))
 $(eval $(call BuildPackage,findfs))
 $(eval $(call BuildPackage,flock))
+$(eval $(call BuildPackage,fsfreeze))
 $(eval $(call BuildPackage,getopt))
 $(eval $(call BuildPackage,hwclock))
 $(eval $(call BuildPackage,logger))
@@ -577,6 +626,8 @@ $(eval $(call BuildPackage,look))
 $(eval $(call BuildPackage,losetup))
 $(eval $(call BuildPackage,lsblk))
 $(eval $(call BuildPackage,mcookie))
+$(eval $(call BuildPackage,mkfs))
+$(eval $(call BuildPackage,mkfs_bfs))
 $(eval $(call BuildPackage,mount-utils))
 $(eval $(call BuildPackage,namei))
 $(eval $(call BuildPackage,rename))
