@@ -68,6 +68,24 @@ $(call Package/e2fsprogs)
   DEPENDS:= +e2fsprogs
 endef
 
+define Package/e2freefrag
+$(call Package/e2fsprogs)
+  TITLE:=Report free space fragmentation information
+  DEPENDS:= +e2fsprogs
+endef
+
+define Package/e2label
+$(call Package/e2fsprogs)
+  TITLE:=Change the label on an ext2/ext3/ext4 filesystem
+  DEPENDS:= +e2fsprogs
+endef
+
+define Package/filefrag
+$(call Package/e2fsprogs)
+  TITLE:=Report on file fragmentation
+  DEPENDS:= +e2fsprogs
+endef
+
 TARGET_CFLAGS += $(FPIC) -ffunction-sections -fdata-sections
 
 CONFIGURE_VARS += \
@@ -149,8 +167,26 @@ define Package/badblocks/install
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/sbin/badblocks $(1)/usr/sbin/
 endef
 
+define Package/e2freefrag/install
+	$(INSTALL_DIR) $(1)/usr/sbin
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/sbin/e2freefrag $(1)/usr/sbin/
+endef
+
+define Package/e2label/install
+	$(INSTALL_DIR) $(1)/usr/sbin
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/sbin/e2label $(1)/usr/sbin/
+endef
+
+define Package/filefrag/install
+	$(INSTALL_DIR) $(1)/usr/sbin
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/sbin/filefrag $(1)/usr/sbin/
+endef
+
 $(eval $(call BuildPackage,e2fsprogs))
 $(eval $(call BuildPackage,libext2fs))
 $(eval $(call BuildPackage,tune2fs))
 $(eval $(call BuildPackage,resize2fs))
 $(eval $(call BuildPackage,badblocks))
+$(eval $(call BuildPackage,e2freefrag))
+$(eval $(call BuildPackage,e2label))
+$(eval $(call BuildPackage,filefrag))
